@@ -44,6 +44,15 @@ class DetalhesDoComprovanteUIViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigation()
+    }
+    
+    private func setupNavigation() {
+        navigationController?.navigationBar.tintColor = .black
+        self.title = "Detalhes do Comprovante"
+    }
+    
     private func setupView() {
         self.view.backgroundColor = .white
         self.view.addSubview(scrollView)

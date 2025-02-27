@@ -15,6 +15,8 @@ struct Comprovante: Decodable {
     let amount: String
     let control: String
     let date: String
+    
+    
 }
 
 struct Comprovantes: Decodable {

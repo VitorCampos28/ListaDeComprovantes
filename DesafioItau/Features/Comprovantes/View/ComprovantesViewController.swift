@@ -10,6 +10,10 @@ import UIKit
 class ComprovantesViewController: UIViewController {
     let tableView: UITableView = {
        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.layer.cornerRadius = 25
+        tableView.separatorStyle = .none
+        tableView.bounces = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -26,7 +30,7 @@ class ComprovantesViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .blueCustom
         setupView()
     }
     
@@ -36,20 +40,40 @@ class ComprovantesViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
+        
+        setupNavigation()
+    }
+    
+    private func setupNavigation() {
+        self.title = "Comprovantes"
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+         
+         // Aplica a configuração para todos os estados da barra
+         navigationController?.navigationBar.standardAppearance = navBarAppearance
+         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+         navigationController?.navigationBar.compactAppearance = navBarAppearance
+        
+        let rightImage = UIImage(systemName: "arrow.circlepath")
+        rightImage?.withTintColor(.white)
+        let rightButton = UIBarButtonItem(image: rightImage, style: .plain, target: nil, action: nil)
+        
+        navigationItem.rightBarButtonItem = rightButton
+        navigationController?.navigationBar.tintColor = .white
     }
     
     private func setupView(){
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .red
         tableView.register(ComprovanteUITableViewCell.self, forCellReuseIdentifier: "ComprovanteUITableViewCell")
         
         NSLayoutConstraint.activate([
-            tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
     }
 }
@@ -72,6 +96,7 @@ extension ComprovantesViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         guard let comprovante = viewModel.comprovantes?[indexPath.row] else { return }
         self.navigationController?.pushViewController(DetalhesDoComprovanteUIViewController(comprovante: comprovante), animated: true)
     }
