@@ -23,7 +23,7 @@ class PaymentProofListViewController: BaseUIViewController {
         return tableView
     }()
     
-    let viewModel: PaymentProofListViewModelProtocol
+    var viewModel: PaymentProofListViewModelProtocol
     
     init (viewModel: PaymentProofListViewModelProtocol = PaymentProofListViewModel()) {
         self.viewModel = viewModel
@@ -48,6 +48,17 @@ class PaymentProofListViewController: BaseUIViewController {
         }
         
         setupNavigation()
+    }
+    
+    private func bind() {
+        viewModel.showPopupError = { [weak self] in
+            guard let self = self else { return }
+            let alert = UIAlertController(title: "Error", message: "Unable to retrieve the data.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            self.navigationController?.present(alert, animated: true)
+        }
     }
     
     private func setupNavigation() {

@@ -9,11 +9,13 @@ import Foundation
 
 protocol PaymentProofListViewModelProtocol {
     var paymentProofList: [PaymentProof]? { get }
+    var showPopupError: (() -> Void)? { get set }
     
     func atualizarComprovantes(completion: @escaping () -> Void)
 }
 
 class PaymentProofListViewModel: PaymentProofListViewModelProtocol {
+    var showPopupError: (() -> Void)?
     var paymentProofList: [PaymentProof]?
     let service: PaymentProofServiceProtocol
     
