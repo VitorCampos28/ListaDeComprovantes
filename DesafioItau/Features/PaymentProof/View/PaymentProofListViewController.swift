@@ -52,9 +52,9 @@ class PaymentProofListViewController: BaseUIViewController {
     }
     
     private func bind() {
-        viewModel.showPopupError = { [weak self] in
+        viewModel.showPopupError = { [weak self] errorMessage in
             guard let self = self else { return }
-            let alert = UIAlertController(title: "Error", message: "Unable to retrieve the data.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
             
