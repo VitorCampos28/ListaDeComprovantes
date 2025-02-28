@@ -26,9 +26,28 @@ protocol PaymentProofServiceProtocol {
 }
 
 class PaymentProofService: PaymentProofServiceProtocol {
+    private let session: URLSession
+    private let mock: Bool
+    
+    init (urlSession: URLSession = .shared, mock: Bool = false) {
+        self.session = urlSession
+        self.mock = mock
+    }
     
     func atualizarComprovantes() async throws -> Data {
-        // Implementacao com URl Session -> Chamada de API
-        return Data()
+
+        if mock {
+            return try await mockDataProvider()
+        } else {
+            return Data()
+        }
+    }
+    
+    private func mockDataProvider() async throws -> Data {
+        guard let bundle = Bundle.main.url(forResource: "DadosComprovantes", withExtension: "json") else {
+            throw AplicationErrors.unableToRetrieveTheData
+        }
+        
+        return try Data(contentsOf: bundle)
     }
 }

@@ -32,6 +32,10 @@ class PaymentProofDetailsUIViewController: BaseUIViewController {
     init(paymentProof: PaymentProof) {
         self.paymentProof = paymentProof
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
         setupData()
         setupView()
     }

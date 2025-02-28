@@ -42,13 +42,16 @@ class PaymentProofListViewController: BaseUIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNavigation()
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
         viewModel.atualizarComprovantes {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        
-        setupNavigation()
     }
     
     private func bind() {

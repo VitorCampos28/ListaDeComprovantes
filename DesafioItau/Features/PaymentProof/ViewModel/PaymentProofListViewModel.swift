@@ -19,7 +19,7 @@ class PaymentProofListViewModel: PaymentProofListViewModelProtocol {
     var paymentProofList: [PaymentProof]?
     let service: PaymentProofServiceProtocol
     
-    init (service: PaymentProofServiceProtocol = ServicoDeComprovantesMock()) {
+    init (service: PaymentProofServiceProtocol = PaymentProofService(mock: true)) {
         self.service = service
     }
     
