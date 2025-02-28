@@ -46,13 +46,7 @@ class ComprovanteUITableViewCell: UITableViewCell {
         return imageView
     }()
     
-    lazy var separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blueCustom
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        return view
-    }()
+    lazy var separatorLine: UIView = SeparatorView()
     
     lazy var nomeDoFavorecido = UILabel()
     lazy var data = UILabel()

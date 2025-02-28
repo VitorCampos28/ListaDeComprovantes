@@ -7,31 +7,27 @@
 
 import UIKit
 
-class DetalhesDoComprovanteUIViewController: UIViewController {
-
-    let comprovante: Comprovante
+class DetalhesDoComprovanteUIViewController: BaseUIViewController {
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    lazy var stackView: UIStackView = {
+    let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 10
+        stackView.backgroundColor = .white
+        stackView.layer.cornerRadius = 25
+        stackView.spacing = 20
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width - 20).isActive = true
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         return stackView
     }()
     
-    lazy var titulo = UILabel()
-    lazy var nome = UILabel()
-    lazy var nomeDoFavorecido = UILabel()
-    lazy var valor = UILabel()
-    lazy var data = UILabel()
-    lazy var controle = UILabel()
-    lazy var idDaTransacao = UILabel()
+    let comprovante: Comprovante
     
     init(comprovante: Comprovante) {
         self.comprovante = comprovante
@@ -45,46 +41,61 @@ class DetalhesDoComprovanteUIViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupNavigation()
     }
     
     private func setupNavigation() {
-        navigationController?.navigationBar.tintColor = .black
         self.title = "Detalhes do Comprovante"
     }
     
     private func setupView() {
-        self.view.backgroundColor = .white
         self.view.addSubview(scrollView)
-        scrollView.addSubview(stackView)
-        
-        stackView.addArrangedSubview(titulo)
-        stackView.addArrangedSubview(nome)
-        stackView.addArrangedSubview(nomeDoFavorecido)
-        stackView.addArrangedSubview(valor)
-        stackView.addArrangedSubview(data)
-        stackView.addArrangedSubview(controle)
-        stackView.addArrangedSubview(idDaTransacao)
+        scrollView.addSubview(verticalStackView)
         
         NSLayoutConstraint.activate([
             scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            
+            verticalStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
+            verticalStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -10),
+            verticalStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            verticalStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
     
     private func setupData(){
-        titulo.text = comprovante.title
-        nome.text = comprovante.name
-        nomeDoFavorecido.text = comprovante.receiverName
-        valor.text = comprovante.amount
-        data.text = comprovante.date
-        controle.text = comprovante.control
-        idDaTransacao.text = comprovante.receiptId
+        
+
+        let rowsData = [
+            ("Nome:", comprovante.name),
+            ("Favorecido:", comprovante.receiverName),
+            ("Valor:", comprovante.amount),
+            ("Data:", comprovante.date),
+            ("Controle:", comprovante.control),
+            ("ID da transação:", comprovante.receiptId)
+            ]
+        
+        for (key, value) in rowsData {
+            let titleView = UILabel()
+            titleView.text = key
+            titleView.textAlignment = .left
+            let valueView = UILabel()
+            valueView.textAlignment = .right
+            valueView.numberOfLines = 0
+            valueView.text = value.removingWrongCharacters()
+            let separatorView = SeparatorView(backgroundColor: .black, height: 1)
+            
+            let stackView = UIStackView()
+            stackView.axis = .horizontal
+            
+            stackView.addArrangedSubview(titleView)
+            stackView.addArrangedSubview(valueView)
+            
+            verticalStackView.addArrangedSubview(stackView)
+            verticalStackView.addArrangedSubview(separatorView)
+        }
     }
 }

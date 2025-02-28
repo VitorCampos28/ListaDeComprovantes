@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ComprovantesViewController: UIViewController {
+class ComprovantesViewController: BaseUIViewController {
     let tableView: UITableView = {
        let tableView = UITableView()
         tableView.backgroundColor = .white
@@ -30,11 +30,12 @@ class ComprovantesViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.view.backgroundColor = .blueCustom
+        super.viewDidLoad()
         setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.atualizarComprovantes {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -46,14 +47,6 @@ class ComprovantesViewController: UIViewController {
     
     private func setupNavigation() {
         self.title = "Comprovantes"
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-         
-         // Aplica a configuração para todos os estados da barra
-         navigationController?.navigationBar.standardAppearance = navBarAppearance
-         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-         navigationController?.navigationBar.compactAppearance = navBarAppearance
         
         let rightImage = UIImage(systemName: "arrow.circlepath")
         rightImage?.withTintColor(.white)
