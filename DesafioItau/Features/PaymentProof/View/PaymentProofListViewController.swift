@@ -13,6 +13,7 @@ class PaymentProofListViewController: BaseUIViewController {
         case reloadImageName = "arrow.circlepath"
         case cellIdentifier = "ComprovanteUITableViewCell"
     }
+    
     let tableView: UITableView = {
        let tableView = UITableView()
         tableView.backgroundColor = .white
@@ -24,6 +25,7 @@ class PaymentProofListViewController: BaseUIViewController {
     }()
     
     var viewModel: PaymentProofListViewModelProtocol
+    var paymentProofList: [PaymentProof]?
     
     init (viewModel: PaymentProofListViewModelProtocol = PaymentProofListViewModel()) {
         self.viewModel = viewModel
@@ -37,7 +39,7 @@ class PaymentProofListViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        bind()
+        callService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,23 +47,23 @@ class PaymentProofListViewController: BaseUIViewController {
         setupNavigation()
     }
     
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
-        viewModel.atualizarComprovantes {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    private func bind() {
-        viewModel.showPopupError = { [weak self] errorMessage in
-            guard let self = self else { return }
-            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
+
+    private func callService() {
+        viewModel.updateProofList { result in
             
-            self.navigationController?.present(alert, animated: true)
+            switch result {
+            case .success(let success):
+                self.paymentProofList = success
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                
+                self.navigationController?.present(alert, animated: true)
+            }
         }
     }
     
@@ -93,14 +95,14 @@ class PaymentProofListViewController: BaseUIViewController {
 
 extension PaymentProofListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.paymentProofList?.count ?? 0
+        paymentProofList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.rawValue, for: indexPath) as? PaymentProofListUITableViewCell else {
             return UITableViewCell()
         }
-        if let paymentProof =  viewModel.paymentProofList?[indexPath.row] {
+        if let paymentProof =  paymentProofList?[indexPath.row] {
             cell.paymentProof = paymentProof
             cell.setupData()
             cell.setupCell()
@@ -110,7 +112,7 @@ extension PaymentProofListViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        guard let paymentProof = viewModel.paymentProofList?[indexPath.row] else { return }
+        guard let paymentProof = paymentProofList?[indexPath.row] else { return }
         self.navigationController?.pushViewController(PaymentProofDetailsUIViewController(paymentProof: paymentProof), animated: true)
     }
 }

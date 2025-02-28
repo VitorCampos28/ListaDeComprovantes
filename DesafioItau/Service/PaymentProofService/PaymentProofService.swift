@@ -22,7 +22,7 @@ enum AplicationErrors: Error, LocalizedError {
 }
 
 protocol PaymentProofServiceProtocol {
-    func atualizarComprovantes() async throws -> Data
+    func updatePaymentProof() async throws -> Data
 }
 
 class PaymentProofService: PaymentProofServiceProtocol {
@@ -34,7 +34,7 @@ class PaymentProofService: PaymentProofServiceProtocol {
         self.mock = mock
     }
     
-    func atualizarComprovantes() async throws -> Data {
+    func updatePaymentProof() async throws -> Data {
 
         if mock {
             return try await mockDataProvider()

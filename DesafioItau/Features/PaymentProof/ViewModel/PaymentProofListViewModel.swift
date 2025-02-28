@@ -8,10 +8,8 @@
 import Foundation
 
 protocol PaymentProofListViewModelProtocol {
-    var paymentProofList: [PaymentProof]? { get }
-    var showPopupError: ((String) -> Void)? { get set }
     
-    func atualizarComprovantes(completion: @escaping () -> Void)
+    func updateProofList(completion: @escaping (Result<[PaymentProof], Error>) -> Void)
 }
 
 class PaymentProofListViewModel: PaymentProofListViewModelProtocol {
@@ -23,19 +21,18 @@ class PaymentProofListViewModel: PaymentProofListViewModelProtocol {
         self.service = service
     }
     
-    func atualizarComprovantes(completion: @escaping () -> Void) {
+    func updateProofList(completion: @escaping (Result<[PaymentProof], Error>) -> Void) {
         Task {
             do {
-                let data = try await self.service.atualizarComprovantes()
+                let data = try await self.service.updatePaymentProof()
                 
                 if let paymentProofModel = try? JSONDecoder().decode(PaymentProofModel.self, from: data) {
-                    self.paymentProofList = paymentProofModel.updateData.paymentProofList
-                    completion()
+                    completion(.success(paymentProofModel.updateData.paymentProofList))
                 } else {
                     throw AplicationErrors.decodeError
                 }
             } catch {
-                showPopupError?(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }
