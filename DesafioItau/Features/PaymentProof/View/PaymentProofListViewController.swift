@@ -37,6 +37,7 @@ class PaymentProofListViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
