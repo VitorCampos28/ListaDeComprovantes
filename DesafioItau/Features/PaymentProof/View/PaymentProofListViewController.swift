@@ -1,5 +1,5 @@
 //
-//  ComprovantesViewController.swift
+//  PaymentProofListViewController.swift
 //  DesafioItau
 //
 //  Created by Vitor Campos on 26/02/25.
@@ -7,7 +7,12 @@
 
 import UIKit
 
-class ComprovantesViewController: BaseUIViewController {
+class PaymentProofListViewController: BaseUIViewController {
+    private enum Constants: String {
+        case navigationTitle = "Comprovantes"
+        case reloadImageName = "arrow.circlepath"
+        case cellIdentifier = "ComprovanteUITableViewCell"
+    }
     let tableView: UITableView = {
        let tableView = UITableView()
         tableView.backgroundColor = .white
@@ -18,9 +23,9 @@ class ComprovantesViewController: BaseUIViewController {
         return tableView
     }()
     
-    let viewModel: ComprovantesViewModelProtocol
+    let viewModel: PaymentProofListViewModelProtocol
     
-    init (viewModel: ComprovantesViewModelProtocol = ComprovantesViewModel()) {
+    init (viewModel: PaymentProofListViewModelProtocol = PaymentProofListViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,9 +51,9 @@ class ComprovantesViewController: BaseUIViewController {
     }
     
     private func setupNavigation() {
-        self.title = "Comprovantes"
+        self.title = Constants.navigationTitle.rawValue
         
-        let rightImage = UIImage(systemName: "arrow.circlepath")
+        let rightImage = UIImage(systemName: Constants.reloadImageName.rawValue)
         rightImage?.withTintColor(.white)
         let rightButton = UIBarButtonItem(image: rightImage, style: .plain, target: nil, action: nil)
         
@@ -60,7 +65,7 @@ class ComprovantesViewController: BaseUIViewController {
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ComprovanteUITableViewCell.self, forCellReuseIdentifier: "ComprovanteUITableViewCell")
+        tableView.register(PaymentProofListUITableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier.rawValue)
         
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -71,17 +76,17 @@ class ComprovantesViewController: BaseUIViewController {
     }
 }
 
-extension ComprovantesViewController: UITableViewDelegate, UITableViewDataSource {
+extension PaymentProofListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.comprovantes?.count ?? 0
+        viewModel.paymentProofList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ComprovanteUITableViewCell", for: indexPath) as? ComprovanteUITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.rawValue, for: indexPath) as? PaymentProofListUITableViewCell else {
             return UITableViewCell()
         }
-        if let comprovante =  viewModel.comprovantes?[indexPath.row] {
-            cell.comprovante = comprovante
+        if let paymentProof =  viewModel.paymentProofList?[indexPath.row] {
+            cell.paymentProof = paymentProof
             cell.setupData()
             cell.setupCell()
         }
@@ -90,7 +95,7 @@ extension ComprovantesViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        guard let comprovante = viewModel.comprovantes?[indexPath.row] else { return }
-        self.navigationController?.pushViewController(DetalhesDoComprovanteUIViewController(comprovante: comprovante), animated: true)
+        guard let paymentProof = viewModel.paymentProofList?[indexPath.row] else { return }
+        self.navigationController?.pushViewController(PaymentProofDetailsUIViewController(paymentProof: paymentProof), animated: true)
     }
 }

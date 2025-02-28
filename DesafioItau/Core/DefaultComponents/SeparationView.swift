@@ -1,5 +1,5 @@
 //
-//  SeparatorView.swift
+//  SeparationView.swift
 //  DesafioItau
 //
 //  Created by Vitor Campos on 27/02/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SeparatorView: UIView {
+class SeparationView: UIView {
     
     init(backgroundColor: UIColor = .blueCustom, height: CGFloat = 2) {
         super.init(frame: .zero)

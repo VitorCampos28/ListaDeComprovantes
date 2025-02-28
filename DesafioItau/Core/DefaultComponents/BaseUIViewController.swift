@@ -28,10 +28,12 @@ class BaseUIViewController: UIViewController {
     private func setupNavigationAppearance() {
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-         
-         // Aplica a configuração para todos os estados da barra
-         navigationController?.navigationBar.standardAppearance = navBarAppearance
-         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-         navigationController?.navigationBar.compactAppearance = navBarAppearance
+        
+        // Aplica a configuração para todos os estados da barra
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.compactAppearance = navBarAppearance
+        let backButton = UIBarButtonItem(title: "Voltar", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
     }
 }

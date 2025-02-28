@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    func removingWrongCharacters() -> String {
+    func removeSpecialChars() -> String {
         self.replacingOccurrences(of: "√™", with: "ê")
             .replacingOccurrences(of: "√©", with: "é")
             .replacingOccurrences(of: "√£", with: "ã")

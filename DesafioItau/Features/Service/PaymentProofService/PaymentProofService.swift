@@ -7,25 +7,25 @@
 
 import Foundation
 
-enum ErrorsDasAplicacao: Error, LocalizedError {
-    case naoFoiPossivelRecuperarDados
-    case erroNoDecode
+enum AplicationErrors: Error, LocalizedError {
+    case unableToRetrieveTheData
+    case decodeError
     
     var errorDescription: String? {
         switch self {
-        case .naoFoiPossivelRecuperarDados:
+        case .unableToRetrieveTheData:
             return "Não foi possivel recuperar os dados."
-        case .erroNoDecode:
+        case .decodeError:
             return "Erro no decode."
         }
     }
 }
 
-protocol ServicoDeComprovantesProtocol {
+protocol PaymentProofServiceProtocol {
     func atualizarComprovantes() async throws -> Data
 }
 
-class ServicoDeComprovantes: ServicoDeComprovantesProtocol {
+class PaymentProofService: PaymentProofServiceProtocol {
     
     func atualizarComprovantes() async throws -> Data {
         // Implementacao com URl Session -> Chamada de API
