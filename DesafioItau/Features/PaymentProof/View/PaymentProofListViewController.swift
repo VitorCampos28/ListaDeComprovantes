@@ -113,6 +113,6 @@ extension PaymentProofListViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         guard let paymentProof = paymentProofList?[indexPath.row] else { return }
-        self.navigationController?.pushViewController(PaymentProofDetailsUIViewController(paymentProof: paymentProof), animated: true)
+        self.navigationController?.pushViewController(PaymentProofDetailsViewController(paymentProof: paymentProof), animated: true)
     }
 }

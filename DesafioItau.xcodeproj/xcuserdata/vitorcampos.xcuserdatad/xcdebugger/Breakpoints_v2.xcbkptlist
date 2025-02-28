@@ -23,54 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A0BBADAC-7738-474E-A60C-5F3E3307F59A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DesafioItauTests/Features/PaymentProofTests/PaymentProofListViewControllerTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "updateProofList(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C0E58D98-CBCA-4B58-B6D8-53976F7AA436"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DesafioItauTests/Features/PaymentProofTests/PaymentProofListViewControllerTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "test_controller_shouldDisplay_rightData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3616A23E-03E3-4197-998E-7B768767AC4E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DesafioItauTests/Features/PaymentProofTests/PaymentProofListViewControllerTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "test_didSelectRow_ShouldNavigateToDetailScreen()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F4FF8156-C3BA-4478-BB80-1E53FE029ECE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -78,9 +30,9 @@
             filePath = "DesafioItauTests/Features/PaymentProofTests/PaymentProofListViewControllerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "test_controller_shouldDisplay_rightNUmberOfCells()"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "test_didSelectRow_ShouldNavigateToDetailScreen()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1,5 +1,5 @@
 //
-//  PaymentProofDetailsUIViewController.swift
+//  PaymentProofDetailsViewController.swift
 //  DesafioItau
 //
 //  Created by Vitor Campos on 27/02/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PaymentProofDetailsUIViewController: BaseUIViewController {
+class PaymentProofDetailsViewController: BaseUIViewController {
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
