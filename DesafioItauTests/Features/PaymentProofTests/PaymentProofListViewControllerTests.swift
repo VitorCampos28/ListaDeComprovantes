@@ -42,7 +42,7 @@ final class PaymentProofListViewModelSpy: PaymentProofListViewModelProtocol {
     var mockDataTest: [PaymentProof]?
     
     func updateProofList(completion: @escaping (Result<[PaymentProof], Error>) -> Void) {
-        let mockData = [PaymentProof(title: "Pagamento", receiptId: "123452456456", name: "Peçanha da Silva", receiverName: "Diogo Silva", amount: "R$ 200,00", control: "ITOEWRNCV321424", date: "qua, 28 de abril de 2022"), PaymentProof(title: "Pagamento", receiptId: "123452456456", name: "Peçanha da Silva", receiverName: "Diogo Silva", amount: "R$ 200,00", control: "ITOEWRNCV321424", date: "qua, 1 de maio de 2022")]
+        let mockData = MockData.getPaymentProofTestsData()
         mockDataTest = mockData
         completion(.success(mockData))
     }

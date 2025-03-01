@@ -34,20 +34,39 @@ class PaymentProofListViewModelTests: XCTestCase {
         
         wait(for: [expectation], timeout: 2)
     }
+    
+    func test_fetchData_shouldReturnPaymentProofData() {
+        let expectation = expectation(description: "Deve ser chamado apenas uma vez")
+        
+        sut.updateProofList { result in
+            
+            switch result {
+            case .success(let success):
+                XCTAssertEqual(success[0].name, "Peçanha da Silva")
+            case .failure(_):
+                break
+            }
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
 }
 
 
 //MARK: SPY
 
 final class PaymentProofServiceSpy: PaymentProofServiceProtocol {
+    
     private(set) var paymentProofDataCalled = false
     private(set) var numberOfCalls: Int = 0
     
-    func updatePaymentProof() async throws -> Data {
+    func updatePaymentProof() async throws -> [PaymentProof]? {
         paymentProofDataCalled = true
         
         numberOfCalls += 1
 
-        return Data()
+        return MockData.getPaymentProofTestsData()
     }
 }

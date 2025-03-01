@@ -33,6 +33,7 @@ class BaseUIViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationController?.navigationBar.compactAppearance = navBarAppearance
+        
         let backButton = UIBarButtonItem(title: "Voltar", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButton
     }

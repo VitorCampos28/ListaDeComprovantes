@@ -22,7 +22,7 @@ enum AplicationErrors: Error, LocalizedError {
 }
 
 protocol PaymentProofServiceProtocol {
-    func updatePaymentProof() async throws -> Data
+    func updatePaymentProof() async throws -> [PaymentProof]?
 }
 
 class PaymentProofService: PaymentProofServiceProtocol {
@@ -34,20 +34,25 @@ class PaymentProofService: PaymentProofServiceProtocol {
         self.mock = mock
     }
     
-    func updatePaymentProof() async throws -> Data {
+    func updatePaymentProof() async throws -> [PaymentProof]? {
 
         if mock {
             return try await mockDataProvider()
         } else {
-            return Data()
+            return nil
         }
     }
     
-    private func mockDataProvider() async throws -> Data {
+    private func mockDataProvider() async throws -> [PaymentProof] {
         guard let bundle = Bundle.main.url(forResource: "DadosComprovantes", withExtension: "json") else {
             throw AplicationErrors.unableToRetrieveTheData
         }
         
-        return try Data(contentsOf: bundle)
+        let data = try Data(contentsOf: bundle)
+        if let paymentProofModel = try? JSONDecoder().decode(PaymentProofModel.self, from: data) {
+            return paymentProofModel.updateData.paymentProofList
+        } else {
+            throw AplicationErrors.decodeError
+        }
     }
 }

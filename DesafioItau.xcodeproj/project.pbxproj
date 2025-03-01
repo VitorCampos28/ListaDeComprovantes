@@ -37,6 +37,20 @@
 			);
 			target = AC59B8C92D6FDEA70014F49B /* DesafioItau */;
 		};
+		AC6C22A02D7283D600AEE92D /* Exceptions for "DesafioItauTests" folder in "DesafioItau" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Extension/MockData.swift,
+			);
+			target = AC59B8C92D6FDEA70014F49B /* DesafioItau */;
+		};
+		AC6C22A12D7283D600AEE92D /* Exceptions for "DesafioItauTests" folder in "DesafioItauTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Extension/MockData.swift,
+			);
+			target = AC59B8DF2D6FDEA80014F49B /* DesafioItauTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -50,6 +64,10 @@
 		};
 		AC59B8E32D6FDEA80014F49B /* DesafioItauTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AC6C22A02D7283D600AEE92D /* Exceptions for "DesafioItauTests" folder in "DesafioItau" target */,
+				AC6C22A12D7283D600AEE92D /* Exceptions for "DesafioItauTests" folder in "DesafioItauTests" target */,
+			);
 			path = DesafioItauTests;
 			sourceTree = "<group>";
 		};

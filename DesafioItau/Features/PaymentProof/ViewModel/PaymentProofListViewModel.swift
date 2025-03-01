@@ -25,12 +25,10 @@ class PaymentProofListViewModel: PaymentProofListViewModelProtocol {
         Task {
             do {
                 let data = try await self.service.updatePaymentProof()
-                
-                if let paymentProofModel = try? JSONDecoder().decode(PaymentProofModel.self, from: data) {
-                    completion(.success(paymentProofModel.updateData.paymentProofList))
-                } else {
-                    throw AplicationErrors.decodeError
+                guard let paymentProofList = data else {
+                    throw AplicationErrors.unableToRetrieveTheData
                 }
+                completion(.success(paymentProofList))
             } catch {
                 completion(.failure(error))
             }
