@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Comprovante: Decodable {
+struct PaymentProof: Decodable {
     let title: String
     let receiptId: String
     let name: String
@@ -17,18 +17,18 @@ struct Comprovante: Decodable {
     let date: String
 }
 
-struct Comprovantes: Decodable {
-    let comprovantes: [Comprovante]
+struct PaymentProofList: Decodable {
+    let paymentProofList: [PaymentProof]
     
     enum CodingKeys: String, CodingKey {
-        case comprovantes = "receipts"
+        case paymentProofList = "receipts"
     }
 }
 
-struct ComprovantesModel: Decodable {
-    let atualizacaoDeDados: Comprovantes
+struct PaymentProofModel: Decodable {
+    let updateData: PaymentProofList
     
     enum CodingKeys: String, CodingKey {
-        case atualizacaoDeDados = "data"
+        case updateData = "data"
     }
 }
